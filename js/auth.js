@@ -17,7 +17,7 @@ function login() {
     localStorage.setItem("role", "admin");
     localStorage.setItem("email", email);
 
-    window.location.href = " bookings.html";
+    window.location.href = " booking.html";
     return;
   }
   
