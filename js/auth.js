@@ -11,7 +11,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 /* =========================
-   ADMIN CREDENTIALS
+   ADMIN CREDENTIALS (CODE ONLY)
 ========================= */
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "12345";
@@ -28,7 +28,7 @@ window.login = async function () {
     return;
   }
 
-  /* ---------- ADMIN LOGIN ---------- */
+  /* ---------- ADMIN LOGIN (NO DATABASE) ---------- */
   if (
     emailOrUsername === ADMIN_USERNAME &&
     password === ADMIN_PASSWORD
@@ -51,7 +51,7 @@ window.login = async function () {
   const snapshot = await getDocs(q);
 
   if (snapshot.empty) {
-    alert("Invalid credentials");
+    alert("Invalid Email or Password");
     return;
   }
 
@@ -66,7 +66,7 @@ window.login = async function () {
 };
 
 /* =========================
-   USER REGISTRATION
+   USER REGISTRATION (Firestore)
 ========================= */
 window.register = async function () {
   const name = document.getElementById("name").value.trim();
@@ -78,6 +78,7 @@ window.register = async function () {
     return;
   }
 
+  // Check if user already exists
   const q = query(collection(db, "users"), where("email", "==", email));
   const snapshot = await getDocs(q);
 
@@ -89,7 +90,7 @@ window.register = async function () {
   await addDoc(collection(db, "users"), {
     name,
     email,
-    password, // ⚠️ demo only
+    password, // ⚠️ demo purpose only
     role: "user",
     createdAt: new Date()
   });
@@ -131,7 +132,7 @@ window.protectUserPage = function () {
 };
 
 /* =========================
-   SHOW USER INFO
+   SHOW LOGGED USER INFO
 ========================= */
 window.showUserInfo = function () {
   const name = localStorage.getItem("username");
