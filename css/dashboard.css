@@ -1,0 +1,314 @@
+/* ===============================
+   GLOBAL THEME (OFFICE STYLE)
+================================ */
+:root {
+  --bg: #f1f3f4;
+  --card: #ffffff;
+  --border: #e0e0e0;
+  --text: #202124;
+  --muted: #5f6368;
+  --blue: #1a73e8;
+  --green: #34a853;
+  --red: #ea4335;
+}
+
+body {
+  background: var(--bg);
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--text);
+}
+
+/* ===============================
+   DASHBOARD CARDS
+================================ */
+.clickable {
+  cursor: pointer;
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 2px rgba(60,64,67,0.15);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.clickable:hover {
+  box-shadow: 0 4px 10px rgba(60,64,67,0.25);
+  transform: translateY(-2px);
+}
+
+/* ===============================
+   RESULT / CONTENT BOX
+================================ */
+.result-box {
+  margin-top: 24px;
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(60,64,67,0.2);
+  animation: fadeUp 0.3s ease;
+}
+
+.result-box h2 {
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ===============================
+   LIST VIEW
+================================ */
+.result-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-box li {
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fafafa;
+  margin-bottom: 10px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ===============================
+   DATA TABLE (ADMIN STYLE)
+================================ */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+}
+
+.data-table th {
+  background: #f8f9fa;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table td {
+  padding: 14px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table tr:hover {
+  background: #f5f7f8;
+}
+
+/* ===============================
+   STATUS LABELS (GREEN / RED)
+================================ */
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status.available {
+  background: #e6f4ea;
+  color: var(--green);
+}
+
+.status.booked {
+  background: #fce8e6;
+  color: var(--red);
+}
+
+/* ===============================
+   ROOM GRID (MAP STYLE)
+================================ */
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.seat {
+  background: #e6f4ea;
+  border-radius: 10px;
+  padding: 18px 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #d7eadc;
+  transition: 0.2s;
+}
+
+.seat.booked {
+  background: #fce8e6;
+  border-color: #f5c7c4;
+  color: var(--red);
+}
+
+.seat:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+/* ===============================
+   BOOKING TABLE (CHECK-IN / OUT)
+================================ */
+.booking-container {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid var(--border);
+}
+
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.booking-table thead {
+  background: #f8f9fa;
+}
+
+.booking-table th,
+.booking-table td {
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.booking-table tbody tr:hover {
+  background: #f5f7f8;
+}
+
+/* ===============================
+   ANIMATION (SUBTLE)
+================================ */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+   MOBILE (≤ 480px)
+================================ */
+@media (max-width: 480px) {
+
+  body {
+    padding: 12px;
+  }
+
+  /* Result cards */
+  .result-box {
+    padding: 16px;
+  }
+
+  .result-box h2 {
+    font-size: 16px;
+  }
+
+  /* Stack list items */
+  .result-box li {
+    font-size: 13px;
+    padding: 12px;
+  }
+
+  /* Seat grid */
+  .seat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .seat {
+    padding: 14px 10px;
+    font-size: 12px;
+  }
+
+  /* Tables → horizontal scroll */
+  .data-table,
+  .booking-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .data-table th,
+  .data-table td,
+  .booking-table th,
+  .booking-table td {
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+
+/* ===============================
+   TABLET (≤ 768px)
+================================ */
+@media (max-width: 768px) {
+
+  body {
+    padding: 18px;
+  }
+
+  /* Seat grid */
+  .seat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Table font adjust */
+  .data-table th,
+  .data-table td {
+    font-size: 13px;
+    padding: 12px;
+  }
+}
+
+/* ===============================
+   SMALL DESKTOP (≤ 1024px)
+================================ */
+@media (max-width: 1024px) {
+
+  /* Seat grid */
+  .seat-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ===============================
+   LARGE SCREENS (≥ 1400px)
+================================ */
+@media (min-width: 1400px) {
+
+  body {
+    padding: 40px;
+  }
+
+  .seat-grid {
+    grid-template-columns: repeat(8, 1fr);
+    gap: 18px;
+  }
+
+  .result-box {
+    padding: 30px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 16px;
+    font-size: 14px;
+  }
+}

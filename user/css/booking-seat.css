@@ -1,0 +1,357 @@
+/* ===== HEADINGS ===== */
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+h2 {
+  font-size: 18px;
+  margin: 18px 0 10px;
+  color: #334155;
+}
+
+h3 {
+  margin-bottom: 15px;
+  color: #1e293b;
+}
+
+/* ===== BOOKING LAYOUT ===== */
+.booking-container {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+/* ===== BOOKING FORM ===== */
+.booking-form {
+  flex: 1;
+  min-width: 320px;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.booking-form input,
+.booking-form select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+  outline: none;
+  transition: 0.25s;
+}
+
+.booking-form input:focus,
+.booking-form select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+}
+
+.booking-form label {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* ===== BUTTONS ===== */
+.btn-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.edit-btn,
+.save-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.edit-btn {
+  background: #facc15;
+  color: #1e293b;
+}
+
+.edit-btn:hover {
+  background: #eab308;
+}
+
+.save-btn {
+  background: #2563eb;
+  color: #fff;
+}
+
+.save-btn:hover {
+  background: #1d4ed8;
+}
+
+/* ===== ROOM SELECTION ===== */
+.seat-container {
+  flex: 1;
+  min-width: 320px;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.screen {
+  text-align: center;
+  padding: 12px;
+  margin-bottom: 15px;
+  background: #1e293b;
+  color: #fff;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.seat {
+  height: 55px;
+  background: #e2e8f0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.seat:hover {
+  background: #93c5fd;
+}
+
+.seat.selected {
+  background: #2563eb;
+  color: #fff;
+}
+
+.seat.booked {
+  background: #94a3b8;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+/* ===== AVAILABLE ROOMS ===== */
+.animated-list {
+  margin-top: 15px;
+}
+
+.room-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.room-chips span {
+  padding: 6px 12px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ===== IMAGE UPLOAD ===== */
+.upload-section {
+  margin-top: 30px;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.upload-box {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.upload {
+  flex: 1;
+  min-width: 240px;
+}
+
+.upload label {
+  font-weight: 600;
+  color: #334155;
+}
+
+.image-upload {
+  border: 2px dashed #cbd5e1;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  margin-top: 8px;
+}
+
+.image-upload input {
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+
+.image-upload span {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.preview {
+  width: 100%;
+  max-height: 180px;
+  margin-top: 10px;
+  border-radius: 8px;
+  object-fit: cover;
+  cursor: pointer;
+  display: none;
+}
+
+.status {
+  margin-top: 5px;
+  font-size: 13px;
+  color: #16a34a;
+}
+
+/* ===== MODAL ===== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 35px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ================= LARGE SCREENS (1400px+) ================= */
+@media (min-width: 1400px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  .booking-container {
+    gap: 35px;
+  }
+
+  .booking-form,
+  .seat-container,
+  .upload-section {
+    padding: 35px;
+  }
+}
+
+/* ================= LAPTOPS ================= */
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 26px;
+  }
+
+  .booking-container {
+    gap: 20px;
+  }
+
+  .seat-grid {
+    grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+  }
+}
+
+/* ================= TABLETS ================= */
+@media (max-width: 768px) {
+  .booking-container {
+    flex-direction: column;
+  }
+
+  .booking-form,
+  .seat-container {
+    min-width: 100%;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .seat {
+    height: 50px;
+    font-size: 14px;
+  }
+
+  .upload-box {
+    flex-direction: column;
+  }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 22px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  .booking-form,
+  .seat-container,
+  .upload-section {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .seat-grid {
+    grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+    gap: 10px;
+  }
+
+  .seat {
+    height: 45px;
+    font-size: 13px;
+  }
+
+  .btn-group {
+    flex-direction: column;
+  }
+
+  .edit-btn,
+  .save-btn {
+    font-size: 14px;
+    padding: 11px;
+  }
+
+  .room-chips span {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}

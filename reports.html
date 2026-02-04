@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reports</title>
+
+<link rel="stylesheet" href="css/sidebar.css">
+<link rel="stylesheet" href="css/reports.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>Hotel HMS</h2>
+  <a href="booking.html">Bookings</a>
+  <a href="orders.html">Orders</a>
+  <a href="reports.html" class="active">Reports</a>
+  <a href="login.html">Logout</a>
+</div>
+
+<div class="main page">
+  <h1>Reports & Analytics</h1>
+
+  <!-- SUMMARY -->
+  <div class="card-grid">
+    <div class="card">Total Rooms<br><b id="totalRooms">0</b></div>
+    <div class="card">Total Bookings<br><b id="totalBookings">0</b></div>
+    <div class="card">Total Revenue<br><b id="totalRevenue">₹0</b></div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-bar">
+    <input type="text" id="searchInput" placeholder="Search guest or room" onkeyup="filterTable()">
+    <input type="date" id="fromDate" onchange="filterTable()">
+    <input type="date" id="toDate" onchange="filterTable()">
+    <button onclick="exportCSV()">Export CSV</button>
+  </div>
+
+  <!-- CHART -->
+  <canvas id="revenueChart" height="120"></canvas>
+
+  <!-- TABLE -->
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Guest</th>
+        <th>Room</th>
+        <th>Check-In</th>
+        <th>Check-Out</th>
+        <th>Amount</th>
+        <th>Payment</th>
+        <th>Aadhaar</th>
+        <th>PAN</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="bookingTable"></tbody>
+  </table>
+</div>
+
+<!-- IMAGE MODAL -->
+<div id="imageModal" class="img-modal" onclick="closeImage()">
+  <img id="modalImg">
+</div>
+
+<script src="js/reports.js"></script>
+</body>
+</html>
