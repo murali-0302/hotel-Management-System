@@ -1,6 +1,5 @@
-// firebase.js
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyArLV5gn4tvMvpI_pY7tLDXJrskhTZGI4Q",
@@ -12,6 +11,8 @@ const firebaseConfig = {
   measurementId: "G-5GYW5KGVGP"
 };
 
-
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+
+// ✅ EXPORT db (THIS WAS MISSING)
+export const db = getFirestore(app);
