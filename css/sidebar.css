@@ -18,33 +18,63 @@ body {
   background: linear-gradient(180deg, #1e293b, #0f172a);
   padding: 20px 0;
   z-index: 1000;
+<<<<<<< HEAD
   transition: transform 0.3s ease;
 }
 
+=======
+}
+
+/* SIDEBAR TITLE */
+>>>>>>> 484c6510888383d3b60300bdec6210e080812d48
 .sidebar h2 {
   color: #fff;
   text-align: center;
   margin-bottom: 30px;
+<<<<<<< HEAD
 }
 
+=======
+  font-size: 22px;
+}
+
+/* SIDEBAR LINKS */
+>>>>>>> 484c6510888383d3b60300bdec6210e080812d48
 .sidebar a {
   display: block;
   padding: 14px 25px;
   color: #cbd5f5;
   text-decoration: none;
+<<<<<<< HEAD
+=======
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+>>>>>>> 484c6510888383d3b60300bdec6210e080812d48
 }
 
 .sidebar a.active {
   background: #2563eb;
   color: #fff;
+<<<<<<< HEAD
 }
 
 /* ===== MAIN ===== */
+=======
+  font-weight: 600;
+}
+
+/* ===== MAIN CONTENT ===== */
+>>>>>>> 484c6510888383d3b60300bdec6210e080812d48
 .main {
   margin-left: 230px;
   padding: 30px;
 }
 
+<<<<<<< HEAD
 /* ===== OVERLAY ===== */
 #overlay {
   position: fixed;
@@ -109,6 +139,36 @@ body {
   .main {
     margin-left: 0;
     width: 100%;
+=======
+/* ===== OVERLAY (OPTIONAL – can remove if unused) ===== */
+#overlay {
+  display: none;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
+
+  /* SIDEBAR STILL VISIBLE */
+  .sidebar {
+    width: 200px;
+  }
+
+  .main {
+    margin-left: 200px;
+    padding: 20px;
+  }
+}
+
+/* ================= SMALL MOBILE ================= */
+@media (max-width: 480px) {
+
+  .sidebar {
+    width: 180px;
+  }
+
+  .main {
+    margin-left: 180px;
+>>>>>>> 484c6510888383d3b60300bdec6210e080812d48
     padding: 16px;
   }
 }
