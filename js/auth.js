@@ -11,28 +11,31 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 /* =========================
-   DEFAULT ADMIN CREDENTIALS
+   ADMIN CREDENTIALS
 ========================= */
-const ADMIN_EMAIL = "admin@hotel.com";
+const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "12345";
 
 /* =========================
    LOGIN FUNCTION
 ========================= */
 window.login = async function () {
-  const email = document.getElementById("email").value.trim();
+  const emailOrUsername = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  if (!email || !password) {
-    alert("Email and Password required");
+  if (!emailOrUsername || !password) {
+    alert("All fields are required");
     return;
   }
 
   /* ---------- ADMIN LOGIN ---------- */
-  if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+  if (
+    emailOrUsername === ADMIN_USERNAME &&
+    password === ADMIN_PASSWORD
+  ) {
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("role", "admin");
-    localStorage.setItem("email", email);
+    localStorage.setItem("admin", ADMIN_USERNAME);
 
     window.location.href = "booking.html";
     return;
@@ -41,14 +44,14 @@ window.login = async function () {
   /* ---------- USER LOGIN (Firestore) ---------- */
   const q = query(
     collection(db, "users"),
-    where("email", "==", email),
+    where("email", "==", emailOrUsername),
     where("password", "==", password)
   );
 
   const snapshot = await getDocs(q);
 
   if (snapshot.empty) {
-    alert("Invalid Email or Password");
+    alert("Invalid credentials");
     return;
   }
 
@@ -63,7 +66,7 @@ window.login = async function () {
 };
 
 /* =========================
-   USER REGISTRATION (Firestore)
+   USER REGISTRATION
 ========================= */
 window.register = async function () {
   const name = document.getElementById("name").value.trim();
@@ -75,7 +78,6 @@ window.register = async function () {
     return;
   }
 
-  // Check if user already exists
   const q = query(collection(db, "users"), where("email", "==", email));
   const snapshot = await getDocs(q);
 
@@ -87,7 +89,7 @@ window.register = async function () {
   await addDoc(collection(db, "users"), {
     name,
     email,
-    password, // ⚠️ plaintext (OK for demo only)
+    password, // ⚠️ demo only
     role: "user",
     createdAt: new Date()
   });
@@ -97,7 +99,7 @@ window.register = async function () {
 };
 
 /* =========================
-   LOGOUT FUNCTION
+   LOGOUT
 ========================= */
 window.logout = function () {
   localStorage.clear();
@@ -112,7 +114,7 @@ window.protectAdminPage = function () {
     localStorage.getItem("isLoggedIn") !== "true" ||
     localStorage.getItem("role") !== "admin"
   ) {
-    window.location.href = "../index.html";
+    window.location.href = "../login.html";
   }
 };
 
@@ -129,7 +131,7 @@ window.protectUserPage = function () {
 };
 
 /* =========================
-   SHOW LOGGED USER INFO
+   SHOW USER INFO
 ========================= */
 window.showUserInfo = function () {
   const name = localStorage.getItem("username");
