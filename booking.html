@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
    <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-=======
   <meta charset="UTF-8" />
->>>>>>> 484c6510888383d3b60300bdec6210e080812d48
   <title>Hotel Room Booking</title>
 
   <link rel="stylesheet" href="css/booking-seat.css" />
@@ -15,7 +12,6 @@
 
 <body>
 
-<<<<<<< HEAD
 <!-- HAMBURGER -->
 <button id="menuBtn" class="hamburger">
   <span></span>
@@ -27,10 +23,8 @@
 <div id="overlay"></div>
 
 <!-- SIDEBAR -->
-=======
 <button id="menuBtn">☰</button>  
 
->>>>>>> 484c6510888383d3b60300bdec6210e080812d48
 <div class="sidebar" id="sidebarPanel">
   <h2>Hotel HMS</h2>
   <a href="booking.html" class="active">Bookings</a>
@@ -39,10 +33,7 @@
   <a href="login.html">Logout</a>
 </div>
 
-<<<<<<< HEAD
 <!-- MAIN -->
-=======
->>>>>>> 484c6510888383d3b60300bdec6210e080812d48
 <div class="main fade-in">
   <h1>Room Booking</h1>
 
@@ -129,27 +120,8 @@
   </div>
 </div>
 
-<<<<<<< HEAD
 <!-- SIDEBAR JS -->
 <script src="js/sidebar.js"></script>
-=======
-<script>
-  const menuBtn = document.getElementById("menuBtn");
-  const sidebar = document.getElementById("sidebarPanel");
-
-  menuBtn.addEventListener("click", () => {
-    sidebar.classList.toggle("show");
-  });
-
-  document.querySelectorAll(".sidebar a").forEach(link => {
-    link.addEventListener("click", () => {
-      if (window.innerWidth <= 480) {
-        sidebar.classList.remove("show");
-      }
-    });
-  });
-</script>
->>>>>>> 484c6510888383d3b60300bdec6210e080812d48
 
 <script type="module" src="js/bookings.js"></script>
 <script src="js/auth.js"></script>
