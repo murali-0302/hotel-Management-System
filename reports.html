@@ -12,13 +12,24 @@
 
 <body>
 
-<div class="sidebar">
+<button id="menuBtn" class="hamburger">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<!-- OVERLAY -->
+<div id="overlay"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebarPanel">
   <h2>Hotel HMS</h2>
-  <a href="booking.html">Bookings</a>
+  <a href="booking.html" class="active">Bookings</a>
   <a href="orders.html">Orders</a>
-  <a href="reports.html" class="active">Reports</a>
+  <a href="reports.html">Reports</a>
   <a href="login.html">Logout</a>
 </div>
+
 
 <div class="main page">
   <h1>Reports & Analytics</h1>
