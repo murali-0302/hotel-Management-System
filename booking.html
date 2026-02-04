@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hotel Room Booking</title>
+
+  <link rel="stylesheet" href="css/booking-seat.css" />
+  <link rel="stylesheet" href="css/sidebar.css" />
+</head>
+
+<body>
+
+<button id="menuBtn">☰</button>  
+
+<div class="sidebar" id="sidebarPanel">
+  <h2>Hotel HMS</h2>
+  <a href="booking.html" class="active">Bookings</a>
+  <a href="orders.html">Orders</a>
+  <a href="reports.html">Reports</a>
+  <a href="login.html">Logout</a>
+</div>
+
+<div class="main fade-in">
+  <h1>Room Booking</h1>
+
+  <div class="booking-container">
+
+    <div class="booking-form">
+      <h2>Guest Details</h2>
+
+      <input type="text" id="guestName" placeholder="Guest Name" />
+      <input type="email" id="email" placeholder="Email" />
+      <input type="tel" id="phone" placeholder="Phone Number" />
+      <input type="number" id="guests" placeholder="Number of Guests" min="1" />
+
+      <h2>Room Selection</h2>
+
+      <input type="text" id="roomNumber" placeholder="Selected Room" readonly />
+
+      <select id="floorSelect" onchange="changeFloor()">
+        <option value="1">1st Floor</option>
+        <option value="2">2nd Floor</option>
+      </select>
+
+      <h2>Stay Duration</h2>
+      <label>Check-In</label>
+      <input type="datetime-local" id="checkIn" />
+
+      <label>Check-Out</label>
+      <input type="datetime-local" id="checkOut" />
+
+      <h2>Payment</h2>
+      <select id="paymentMethod">
+        <option value="">Payment Method</option>
+        <option>Cash</option>
+        <option>Card</option>
+        <option>UPI</option>
+      </select>
+
+      <input type="number" id="amount" placeholder="Enter Amount" />
+
+      <div class="btn-group">
+        <button class="edit-btn" onclick="enableEdit()">Edit</button>
+        <button class="save-btn" onclick="addBooking()">Save Booking</button>
+      </div>
+    </div>
+
+    <div class="seat-container">
+      <div class="screen">Select Room</div>
+      <div class="seat-grid" id="seatGrid"></div>
+
+      <div class="animated-list">
+        <h4>Available Rooms</h4>
+        <div id="availableRooms" class="room-chips"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="upload-section">
+    <h2>Upload Documents</h2>
+
+    <div class="upload-box">
+
+      <div class="upload">
+        <label>Aadhaar Card</label>
+        <div class="image-upload">
+          <input type="file" accept="image/*">
+          <span>Click to upload Aadhaar</span>
+        </div>
+        <img class="preview" />
+        <div class="status"></div>
+      </div>
+
+      <div class="upload">
+        <label>Voter ID</label>
+        <div class="image-upload">
+          <input type="file" accept="image/*">
+          <span>Click to upload Voter ID</span>
+        </div>
+        <img class="preview" />
+        <div class="status"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const menuBtn = document.getElementById("menuBtn");
+  const sidebar = document.getElementById("sidebarPanel");
+
+  menuBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("show");
+  });
+
+  document.querySelectorAll(".sidebar a").forEach(link => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth <= 480) {
+        sidebar.classList.remove("show");
+      }
+    });
+  });
+</script>
+
+<script type="module" src="js/bookings.js"></script>
+<script src="js/auth.js"></script>
+
+</body>
+</html>

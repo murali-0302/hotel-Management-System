@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hotel HMS | Booking Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/sidebar.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .main {
+      margin-left: 240px;
+      padding: 35px;
+      animation: fadeUp 0.6s ease;
+    }
+
+    @keyframes fadeUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 25px;
+      color: #0f172a;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.9);
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      transition: 0.35s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(37,99,235,0.25);
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .label {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .value {
+      color: #111827;
+    }
+
+    .status {
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .pending {
+      background: linear-gradient(135deg,#fde68a,#f59e0b);
+      color: #78350f;
+    }
+
+    .approved {
+      background: linear-gradient(135deg,#22c55e,#86efac);
+      color: #064e3b;
+    }
+
+    .rejected {
+      background: linear-gradient(135deg,#ef4444,#fecaca);
+      color: #7f1d1d;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .delete {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    .download {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .main {
+        margin-left: 0;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>Hotel HMS</h2>
+    <a href="booking.html">Bookings</a>
+    <a href="status.html" class="active">Status</a>
+    <a href="login.html">Logout</a>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <h1>Booking Status</h1>
+    <div id="statusList"></div>
+  </div>
+
+<script>
+  const statusList = document.getElementById("statusList");
+  let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+  if (bookings.length === 0) {
+    statusList.innerHTML = "<p>No bookings found.</p>";
+  }
+
+  function renderBookings() {
+    statusList.innerHTML = "";
+
+    bookings.forEach((b, index) => {
+      const statusClass =
+        b.status === "Approved" ? "approved" :
+        b.status === "Rejected" ? "rejected" : "pending";
+
+      statusList.innerHTML += `
+        <div class="card">
+          <div class="row"><span class="label">Guest</span><span class="value">${b.guestName}</span></div>
+          <div class="row"><span class="label">Room</span><span class="value">${b.roomNumber}</span></div>
+          <div class="row"><span class="label">Check-In</span><span class="value">${b.checkIn || "-"}</span></div>
+          <div class="row"><span class="label">Check-Out</span><span class="value">${b.checkOut || "-"}</span></div>
+          <div class="row"><span class="label">Payment</span><span class="value">${b.paymentMethod} - ₹${b.amount}</span></div>
+          <div class="row"><span class="label">Status</span><span class="status ${statusClass}">${b.status || "Pending"}</span></div>
+
+          <div class="actions">
+            <button class="btn delete" onclick="deleteBooking(${index})">Delete</button>
+            <button class="btn download" onclick="downloadBooking(${index})">Download</button>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  function deleteBooking(index) {
+    if (!confirm("Delete this booking?")) return;
+    bookings.splice(index, 1);
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+    renderBookings();
+  }
+
+  function downloadBooking(index) {
+    const b = bookings[index];
+
+    const content = `
+Hotel HMS - Booking Status
+
+Guest Name : ${b.guestName}
+Room Number: ${b.roomNumber}
+Check-In   : ${b.checkIn}
+Check-Out  : ${b.checkOut}
+Payment    : ${b.paymentMethod} - ₹${b.amount}
+Status     : ${b.status || "Pending"}
+
+Thank you for booking with us!
+`;
+
+    const blob = new Blob([content], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `Room_${b.roomNumber}_Booking.txt`;
+    link.click();
+  }
+
+  renderBookings();
+</script>
+
+</body>
+</html>

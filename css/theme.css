@@ -1,0 +1,356 @@
+/* =====================================
+   ROOT THEME (PROFESSIONAL ADMIN)
+===================================== */
+:root {
+  --primary: #4f46e5;        /* Indigo */
+  --secondary: #9333ea;      /* Purple */
+  --accent: #f97316;         /* Orange */
+  --danger: #dc2626;         /* Red */
+
+  --sidebar-bg: linear-gradient(180deg, #1e1b4b, #312e81);
+  --bg-gradient: linear-gradient(135deg, #eef2ff, #f8fafc);
+
+  --card-bg: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+
+  --radius: 14px;
+  --shadow: 0 18px 45px rgba(0,0,0,0.08);
+}
+
+/* =====================================
+   GLOBAL RESET (SINGLE SOURCE OF TRUTH)
+===================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+  background: var(--bg-gradient);
+  color: var(--text);
+}
+
+/* =====================================
+   MAIN CONTENT (ADMIN)
+===================================== */
+.main {
+  margin-left: 240px;
+  padding: 40px;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* =====================================
+   SUMMARY CARDS
+===================================== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+  margin-bottom: 35px;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 26px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card b {
+  display: block;
+  font-size: 30px;
+  margin-top: 10px;
+  color: var(--primary);
+  transition: transform .3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 60px rgba(79,70,229,.25);
+}
+
+.card:hover b {
+  transform: scale(1.08);
+}
+
+/* =====================================
+   FILTER BAR
+===================================== */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.filter-bar input,
+.filter-bar button {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.filter-bar input {
+  border: 1px solid #d1d5db;
+}
+
+.filter-bar input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.filter-bar button {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.filter-bar button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(147,51,234,.35);
+}
+
+/* =====================================
+   DATA TABLE (ADMIN)
+===================================== */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.data-table thead {
+  background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.data-table th,
+.data-table td {
+  padding: 15px 18px;
+  font-size: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.data-table th {
+  font-weight: 600;
+  color: #312e81;
+}
+
+.data-table tr:hover {
+  background: #fafafa;
+}
+
+/* =====================================
+   STATUS BADGES
+===================================== */
+.status {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status.approved {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.rejected {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* =====================================
+   DELETE BUTTON
+===================================== */
+.delete-btn {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: white;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.delete-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(220,38,38,.4);
+}
+
+/* =====================================
+   EXPORT BUTTON
+===================================== */
+.export-btn {
+  position: fixed;
+  top: 22px;
+  right: 28px;
+  padding: 11px 22px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 15px 40px rgba(79,70,229,.45);
+  transition: transform .25s ease, box-shadow .25s ease;
+  z-index: 1000;
+}
+
+.export-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 55px rgba(147,51,234,.5);
+}
+
+/* =====================================
+   IMAGE PROOFS
+===================================== */
+.proof-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 1px solid #e5e7eb;
+  transition: transform .2s ease;
+}
+
+.proof-img:hover {
+  transform: scale(1.08);
+}
+
+/* =====================================
+   IMAGE MODAL
+===================================== */
+.img-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(2,6,23,.85);
+  z-index: 9999;
+}
+
+.img-modal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 18px;
+  background: white;
+}
+
+/* =====================================
+   LOGIN PAGE (SCOPED SAFELY)
+===================================== */
+.login-body {
+  height: 100vh;
+  background: linear-gradient(135deg, #1f4037, #99f2c8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-body .login-card {
+  background: #ffffff;
+  width: 350px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.login-body .login-card h2 {
+  margin-bottom: 25px;
+  color: #1f4037;
+  font-weight: 600;
+}
+
+.login-body .login-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.login-body .login-card input:focus {
+  border-color: #1f4037;
+  box-shadow: 0 0 5px rgba(31, 64, 55, 0.4);
+  outline: none;
+}
+
+.login-body .login-card button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background: #1f4037;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.login-body .login-card button:hover {
+  background: #16352e;
+  transform: translateY(-2px);
+}
+
+/* =====================================
+   RESPONSIVE FIXES
+===================================== */
+@media (max-width: 768px) {
+
+  .main {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+  }
+
+  .export-btn {
+    position: static;
+    width: 100%;
+    margin-bottom: 18px;
+  }
+
+  .data-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

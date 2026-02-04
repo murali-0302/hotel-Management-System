@@ -1,0 +1,259 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: #f4f6fb;
+  padding: 30px;
+}
+
+.page-title {
+  margin-bottom: 20px;
+  color: #1e3a8a;
+}
+
+.booking-wrapper {
+  display: flex;
+  gap: 25px;
+}
+
+/* LEFT */
+.form-card {
+  width: 320px;
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.form-card h3 {
+  margin: 15px 0 8px;
+}
+
+.form-card input,
+.form-card select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+/* BUTTONS */
+.btn-row {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn {
+  background: #facc15;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  width: 50%;
+}
+
+.save-btn {
+  background: #9ca3af;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  width: 50%;
+}
+
+/* RIGHT */
+.rooms-card {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.screen {
+  border: 1px solid #d1d5db;
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+/* ROOMS */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.room {
+  background: #e8f5ec;
+  padding: 18px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.room.active {
+  background: #22c55e;
+  color: white;
+}
+
+.available {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.available span {
+  background: #2563eb;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* UPLOAD */
+.upload-row {
+  display: flex;
+  gap: 15px;
+}
+
+.upload-box input {
+  width: 100%;
+}
+
+
+/* ===============================
+   MOBILE (≤ 480px)
+================================ */
+@media (max-width: 480px) {
+
+  body {
+    padding: 15px;
+  }
+
+  .page-title {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  /* Stack layout */
+  .booking-wrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Form card */
+  .form-card {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .form-card h3 {
+    font-size: 15px;
+  }
+
+  /* Buttons full width */
+  .btn-row {
+    flex-direction: column;
+  }
+
+  .edit-btn,
+  .save-btn {
+    width: 100%;
+  }
+
+  /* Rooms card */
+  .rooms-card {
+    padding: 16px;
+  }
+
+  /* Rooms grid: 2 per row */
+  .rooms-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .room {
+    padding: 14px;
+    font-size: 14px;
+  }
+
+  .available span {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  /* Upload */
+  .upload-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* ===============================
+   TABLET (≤ 768px)
+================================ */
+@media (max-width: 768px) {
+
+  body {
+    padding: 20px;
+  }
+
+  .booking-wrapper {
+    flex-direction: column;
+  }
+
+  .form-card {
+    width: 100%;
+  }
+
+  /* Rooms grid: 3 per row */
+  .rooms-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ===============================
+   SMALL DESKTOP (≤ 1024px)
+================================ */
+@media (max-width: 1024px) {
+
+  /* Rooms grid: 4 per row */
+  .rooms-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ===============================
+   LARGE SCREENS (≥ 1400px)
+================================ */
+@media (min-width: 1400px) {
+
+  body {
+    padding: 50px;
+  }
+
+  .booking-wrapper {
+    max-width: 1300px;
+    margin: auto;
+  }
+
+  .form-card {
+    width: 360px;
+  }
+
+  .rooms-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+  }
+
+  .room {
+    padding: 22px;
+    font-size: 16px;
+  }
+}
