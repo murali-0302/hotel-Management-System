@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hotel Room Booking</title>
 
   <link rel="stylesheet" href="css/booking-seat.css" />
@@ -10,8 +11,17 @@
 
 <body>
 
-<button id="menuBtn">☰</button>  
+<!-- HAMBURGER -->
+<button id="menuBtn" class="hamburger">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
 
+<!-- OVERLAY -->
+<div id="overlay"></div>
+
+<!-- SIDEBAR -->
 <div class="sidebar" id="sidebarPanel">
   <h2>Hotel HMS</h2>
   <a href="booking.html" class="active">Bookings</a>
@@ -20,6 +30,7 @@
   <a href="login.html">Logout</a>
 </div>
 
+<!-- MAIN -->
 <div class="main fade-in">
   <h1>Room Booking</h1>
 
@@ -106,22 +117,8 @@
   </div>
 </div>
 
-<script>
-  const menuBtn = document.getElementById("menuBtn");
-  const sidebar = document.getElementById("sidebarPanel");
-
-  menuBtn.addEventListener("click", () => {
-    sidebar.classList.toggle("show");
-  });
-
-  document.querySelectorAll(".sidebar a").forEach(link => {
-    link.addEventListener("click", () => {
-      if (window.innerWidth <= 480) {
-        sidebar.classList.remove("show");
-      }
-    });
-  });
-</script>
+<!-- SIDEBAR JS -->
+<script src="js/sidebar.js"></script>
 
 <script type="module" src="js/bookings.js"></script>
 <script src="js/auth.js"></script>
