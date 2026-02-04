@@ -277,104 +277,6 @@ h3 {
 }
 
 /* ================= LARGE SCREENS (1400px+) ================= */
-@media (min-width: 1400px) {
-  h1 {
-    font-size: 32px;
-  }
-
-  .booking-container {
-    gap: 35px;
-  }
-
-  .booking-form,
-  .seat-container,
-  .upload-section {
-    padding: 35px;
-  }
-}
-
-/* ================= LAPTOPS ================= */
-@media (max-width: 1024px) {
-  h1 {
-    font-size: 26px;
-  }
-
-  .booking-container {
-    gap: 20px;
-  }
-
-  .seat-grid {
-    grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
-  }
-}
-
-/* ================= TABLETS ================= */
-@media (max-width: 768px) {
-  .booking-container {
-    flex-direction: column;
-  }
-
-  .booking-form,
-  .seat-container {
-    min-width: 100%;
-  }
-
-  h1 {
-    font-size: 24px;
-  }
-
-  .seat {
-    height: 50px;
-    font-size: 14px;
-  }
-
-  .upload-box {
-    flex-direction: column;
-  }
-}
-
-/* ================= MOBILE ================= */
-@media (max-width: 480px) {
-  h1 {
-    font-size: 22px;
-  }
-
-  h2 {
-    font-size: 16px;
-  }
-
-  .booking-form,
-  .seat-container,
-  .upload-section {
-    padding: 18px;
-    border-radius: 12px;
-  }
-
-  .seat-grid {
-    grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
-    gap: 10px;
-  }
-
-  .seat {
-    height: 45px;
-    font-size: 13px;
-  }
-
-  .btn-group {
-    flex-direction: column;
-  }
-
-  .edit-btn,
-  .save-btn {
-    font-size: 14px;
-    padding: 11px;
-  }
-
-  .room-chips span {
-    font-size: 12px;
-    padding: 5px 10px;
-  }
-}
 
 /* GPAY MODAL */
 .modal {
@@ -422,4 +324,137 @@ h3 {
 .modal-content .cancel {
   background: #ef4444;
   color: white;
+}
+/* ===============================
+   LARGE LAPTOPS (≤ 1200px)
+================================ */
+@media (max-width: 1200px) {
+  .booking-container {
+    gap: 20px;
+  }
+
+  .seat-grid {
+    grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+  }
+}
+
+/* ===============================
+   TABLETS (≤ 900px)
+================================ */
+@media (max-width: 900px) {
+
+  /* Sidebar collapses */
+  .sidebar {
+    width: 70px;
+    padding: 20px 10px;
+  }
+
+  .sidebar h2 {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .sidebar a {
+    font-size: 13px;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .main {
+    margin-left: 70px;
+    padding: 20px;
+  }
+
+  /* Booking layout stacks */
+  .booking-container {
+    flex-direction: column;
+  }
+
+  .booking-form,
+  .seat-container {
+    min-width: 100%;
+  }
+
+  .upload-box {
+    flex-direction: column;
+  }
+}
+
+/* ===============================
+   MOBILE L (≤ 600px)
+================================ */
+@media (max-width: 600px) {
+
+  /* Sidebar becomes topbar-style */
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 1000;
+  }
+
+  .sidebar h2 {
+    display: none;
+  }
+
+  .sidebar a {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .main {
+    margin-left: 0;
+    padding: 16px;
+    padding-bottom: 80px; /* space for sidebar */
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .seat {
+    height: 44px;
+    font-size: 13px;
+  }
+}
+
+/* ===============================
+   MOBILE M (≤ 400px)
+================================ */
+@media (max-width: 400px) {
+
+  h1 {
+    font-size: 20px;
+  }
+
+  h2 {
+    font-size: 15px;
+  }
+
+  .booking-form,
+  .seat-container,
+  .upload-section {
+    padding: 16px;
+  }
+
+  .seat-grid {
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+    gap: 8px;
+  }
+
+  .save-btn {
+    font-size: 14px;
+    padding: 11px;
+  }
+
+  .room-chips span {
+    font-size: 11px;
+    padding: 4px 9px;
+  }
 }

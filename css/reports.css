@@ -184,14 +184,125 @@ canvas {
   border-radius: 12px;
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 900px) {
-  .filter-bar {
-    flex-direction: column;
-    align-items: stretch;
+/* ================= LAPTOP (1024px) ================= */
+@media (max-width: 1024px) {
+  .main h1 {
+    font-size: 26px;
+  }
+
+  .card b {
+    font-size: 26px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 12px;
+    font-size: 12px;
+  }
+}
+
+/* ================= TABLET (768px) ================= */
+@media (max-width: 768px) {
+  .main {
+    padding: 20px;
+  }
+
+  .main h1 {
+    font-size: 24px;
+  }
+
+  .card-grid {
+    gap: 16px;
   }
 
   canvas {
+    padding: 14px;
+  }
+
+  /* table scroll */
+  .data-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* ================= MOBILE L (425px) ================= */
+@media (max-width: 425px) {
+  .main h1 {
+    font-size: 22px;
+  }
+
+  .card {
+    padding: 18px;
+    font-size: 14px;
+  }
+
+  .card b {
+    font-size: 22px;
+  }
+
+  .filter-bar input,
+  .filter-bar button {
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+
+  .data-table th,
+  .data-table td {
     padding: 10px;
+    font-size: 11px;
+  }
+}
+
+/* ================= MOBILE M (375px) ================= */
+@media (max-width: 375px) {
+  .main h1 {
+    font-size: 21px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .card b {
+    font-size: 20px;
+  }
+
+  .data-table button {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
+
+/* ================= MOBILE S (320px) ================= */
+@media (max-width: 320px) {
+  .main {
+    padding: 14px;
+  }
+
+  .main h1 {
+    font-size: 19px;
+  }
+
+  .card {
+    padding: 14px;
+    font-size: 13px;
+  }
+
+  .card b {
+    font-size: 18px;
+  }
+
+  .filter-bar input,
+  .filter-bar button {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 8px;
+    font-size: 10px;
   }
 }

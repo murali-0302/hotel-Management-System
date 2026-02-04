@@ -265,16 +265,6 @@ button:active {
 /* ===============================
    RESPONSIVE
 ================================ */
-@media (max-width: 600px) {
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .auth-card {
-    width: 90%;
-  }
-}
 
 * {
   margin: 0;
@@ -394,76 +384,33 @@ body {
 
 
 /* ===============================
-   SMALL MOBILES (≤ 480px)
+   LAPTOP (≤ 1024px)
 ================================ */
-@media (max-width: 480px) {
-
-  /* Topbar */
-  .topbar {
-    padding: 12px 16px;
-  }
-
-  .topbar h2 {
-    font-size: 16px;
-  }
-
-  .topbar nav {
-    margin-top: 8px;
-  }
-
-  .topbar nav a {
-    margin-left: 0;
-    margin-right: 12px;
-    font-size: 13px;
-  }
-
-  /* Containers */
+@media (max-width: 1024px) {
   .container {
-    padding: 16px;
+    padding: 24px;
   }
 
-  /* Room cards */
   .room-grid {
-    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
-  .room-card {
-    padding: 16px;
+  .auth-card {
+    width: 380px;
+    padding: 32px;
   }
 
-  .room-card h3 {
-    font-size: 16px;
-  }
-
-  .room-card .price {
-    font-size: 18px;
-  }
-
-  /* Auth / Login */
-  .auth-card,
   .login-card {
-    padding: 25px 20px;
-  }
-
-  /* Booking page */
-  .booking-card {
-    margin: 30px 16px;
-    padding: 20px;
-  }
-
-  /* Buttons */
-  button,
-  .btn-login {
-    font-size: 14px;
+    padding: 32px 26px;
   }
 }
 
 /* ===============================
-   TABLETS (≤ 768px)
+   TABLET (≤ 768px)
 ================================ */
 @media (max-width: 768px) {
 
-  /* Navbar */
+  /* Topbar */
   .topbar {
     flex-direction: column;
     align-items: flex-start;
@@ -475,12 +422,7 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Booking list */
-  .booking-list {
-    grid-template-columns: 1fr;
-  }
-
-  /* Auth pages */
+  /* Auth / Login */
   .auth-body {
     padding: 20px;
   }
@@ -493,27 +435,72 @@ body {
 }
 
 /* ===============================
-   LARGE SCREENS (≥ 1400px)
+   MOBILE L (≤ 425px)
 ================================ */
-@media (min-width: 1400px) {
+@media (max-width: 425px) {
 
   .container {
-    max-width: 1400px;
+    padding: 16px;
   }
 
   .room-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .topbar {
-    padding: 20px 60px;
+    grid-template-columns: 1fr;
   }
 
   .room-card {
-    padding: 24px;
+    padding: 16px;
+  }
+
+  .auth-card,
+  .login-card {
+    padding: 24px 20px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+}
+
+/* ===============================
+   MOBILE M (≤ 375px)
+================================ */
+@media (max-width: 375px) {
+
+  .auth-card,
+  .login-card {
+    padding: 22px 18px;
+  }
+
+  input,
+  button,
+  .btn-login {
+    font-size: 14px;
+    padding: 11px;
   }
 
   .room-card h3 {
-    font-size: 20px;
+    font-size: 16px;
+  }
+}
+
+/* ===============================
+   MOBILE S (≤ 320px)
+================================ */
+@media (max-width: 320px) {
+
+  .auth-card,
+  .login-card {
+    padding: 20px 16px;
+  }
+
+  input,
+  button,
+  .btn-login {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .topbar h2 {
+    font-size: 15px;
   }
 }

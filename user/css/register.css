@@ -62,9 +62,73 @@
   background: #1d4ed8;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 420px) {
+/* ================= LAPTOP (1024px) ================= */
+@media (max-width: 1024px) {
   .auth-card {
-    width: 90%;
+    width: 360px;
+    padding: 32px;
+  }
+
+  .auth-card h2 {
+    font-size: 22px;
+  }
+}
+
+/* ================= TABLET (768px) ================= */
+@media (max-width: 768px) {
+  .auth-card {
+    width: 340px;
+    padding: 28px;
+  }
+
+  .auth-card h2 {
+    font-size: 21px;
+  }
+}
+
+/* ================= MOBILE L (425px) ================= */
+@media (max-width: 425px) {
+  .auth-card {
+    width: 92%;
+    padding: 24px;
+    border-radius: 10px;
+  }
+
+  .auth-card h2 {
+    font-size: 20px;
+  }
+}
+
+/* ================= MOBILE M (375px) ================= */
+@media (max-width: 375px) {
+  .auth-card {
+    padding: 22px;
+  }
+
+  .auth-card h2 {
+    font-size: 19px;
+  }
+
+  .auth-card input,
+  .auth-card button {
+    font-size: 14px;
+    padding: 11px;
+  }
+}
+
+/* ================= MOBILE S (320px) ================= */
+@media (max-width: 320px) {
+  .auth-card {
+    padding: 20px;
+  }
+
+  .auth-card h2 {
+    font-size: 18px;
+  }
+
+  .auth-card input,
+  .auth-card button {
+    font-size: 13px;
+    padding: 10px;
   }
 }

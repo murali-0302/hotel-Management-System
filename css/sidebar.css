@@ -30,8 +30,15 @@ body {
 .sidebar a {
   display: block;
   padding: 14px 25px;
-  color: #cbd5f5;
+  color: #cbd5e1; /* FIXED (was cbd5f5 – not Tailwind standard) */
   text-decoration: none;
+  font-size: 15px;
+  transition: background 0.25s, color 0.25s;
+}
+
+.sidebar a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
 }
 
 .sidebar a.active {
@@ -43,6 +50,7 @@ body {
 .main {
   margin-left: 230px;
   padding: 30px;
+  transition: margin-left 0.3s ease;
 }
 
 /* ===== OVERLAY ===== */
@@ -68,8 +76,9 @@ body {
   gap: 5px;
   background: #1e293b;
   border: none;
-  padding: 8px;
+  padding: 10px;
   border-radius: 6px;
+  cursor: pointer;
   z-index: 1100;
 }
 
@@ -83,9 +92,11 @@ body {
 .hamburger.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
+
 .hamburger.active span:nth-child(2) {
   opacity: 0;
 }
+
 .hamburger.active span:nth-child(3) {
   transform: rotate(-45deg) translate(5px, -5px);
 }
