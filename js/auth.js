@@ -1,6 +1,3 @@
-/* =========================
-   FIREBASE IMPORTS
-========================= */
 import { db } from "./firebase.js";
 import {
   collection,
@@ -11,51 +8,52 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 /* =========================
-   ADMIN CREDENTIALS (CODE ONLY)
-========================= */
-const ADMIN_USERNAME = "admin";
-const ADMIN_PASSWORD = "12345";
-
-/* =========================
-   LOGIN FUNCTION
+   LOGIN
 ========================= */
 window.login = async function () {
-  const emailOrUsername = document.getElementById("email").value.trim();
+  const identifier = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  if (!emailOrUsername || !password) {
+  if (!identifier || !password) {
     alert("All fields are required");
     return;
   }
 
-  /* ---------- ADMIN LOGIN (NO DATABASE) ---------- */
-  if (
-    emailOrUsername === ADMIN_USERNAME &&
-    password === ADMIN_PASSWORD
-  ) {
+  // 🔍 CHECK ADMIN (username + password)
+  const adminQuery = query(
+    collection(db, "users"),
+    where("username", "==", identifier),
+    where("password", "==", password),
+    where("role", "==", "admin")
+  );
+
+  const adminSnap = await getDocs(adminQuery);
+
+  if (!adminSnap.empty) {
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("role", "admin");
-    localStorage.setItem("admin", ADMIN_USERNAME);
+    localStorage.setItem("admin", identifier);
 
     window.location.href = "booking.html";
     return;
   }
 
-  /* ---------- USER LOGIN (Firestore) ---------- */
-  const q = query(
+  // 🔍 CHECK USER (email + password)
+  const userQuery = query(
     collection(db, "users"),
-    where("email", "==", emailOrUsername),
-    where("password", "==", password)
+    where("email", "==", identifier),
+    where("password", "==", password),
+    where("role", "==", "user")
   );
 
-  const snapshot = await getDocs(q);
+  const userSnap = await getDocs(userQuery);
 
-  if (snapshot.empty) {
-    alert("Invalid Email or Password");
+  if (userSnap.empty) {
+    alert("Invalid credentials");
     return;
   }
 
-  const user = snapshot.docs[0].data();
+  const user = userSnap.docs[0].data();
 
   localStorage.setItem("isLoggedIn", "true");
   localStorage.setItem("role", "user");
@@ -66,7 +64,7 @@ window.login = async function () {
 };
 
 /* =========================
-   USER REGISTRATION (Firestore)
+   USER REGISTRATION
 ========================= */
 window.register = async function () {
   const name = document.getElementById("name").value.trim();
@@ -78,11 +76,10 @@ window.register = async function () {
     return;
   }
 
-  // Check if user already exists
   const q = query(collection(db, "users"), where("email", "==", email));
-  const snapshot = await getDocs(q);
+  const snap = await getDocs(q);
 
-  if (!snapshot.empty) {
+  if (!snap.empty) {
     alert("User already exists");
     return;
   }
@@ -90,59 +87,11 @@ window.register = async function () {
   await addDoc(collection(db, "users"), {
     name,
     email,
-    password, // ⚠️ demo purpose only
+    password,
     role: "user",
     createdAt: new Date()
   });
 
-  alert("Registration successful!");
+  alert("Registration successful");
   window.location.href = "login.html";
-};
-
-/* =========================
-   LOGOUT
-========================= */
-window.logout = function () {
-  localStorage.clear();
-  window.location.href = "../index.html";
-};
-
-/* =========================
-   ADMIN PAGE PROTECTION
-========================= */
-window.protectAdminPage = function () {
-  if (
-    localStorage.getItem("isLoggedIn") !== "true" ||
-    localStorage.getItem("role") !== "admin"
-  ) {
-    window.location.href = "../login.html";
-  }
-};
-
-/* =========================
-   USER PAGE PROTECTION
-========================= */
-window.protectUserPage = function () {
-  if (
-    localStorage.getItem("isLoggedIn") !== "true" ||
-    localStorage.getItem("role") !== "user"
-  ) {
-    window.location.href = "../login.html";
-  }
-};
-
-/* =========================
-   SHOW LOGGED USER INFO
-========================= */
-window.showUserInfo = function () {
-  const name = localStorage.getItem("username");
-  const email = localStorage.getItem("email");
-
-  if (name && document.getElementById("userName")) {
-    document.getElementById("userName").innerText = name;
-  }
-
-  if (email && document.getElementById("userEmail")) {
-    document.getElementById("userEmail").innerText = email;
-  }
 };
