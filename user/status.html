@@ -24,8 +24,7 @@
 <div class="sidebar" id="sidebarPanel">
   <h2>Hotel HMS</h2>
   <a href="booking.html" class="active">Bookings</a>
-  <a href="orders.html">Orders</a>
-  <a href="reports.html">Reports</a>
+  <a href="status.html">Status</a>
   <a href="login.html">Logout</a>
 </div>
 
@@ -34,7 +33,7 @@
     <h1>Booking Status</h1>
     <div id="statusList"></div>
   </div>
-
+<script src="../js/sidebar.js"></script>
 <script>
   const statusList = document.getElementById("statusList");
   let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
