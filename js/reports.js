@@ -1,77 +1,109 @@
-document.addEventListener("DOMContentLoaded", () => {
+import { db } from "./firebase.js";
+import {
+  collection,
+  getDocs,
+  query,
+  where
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-  const allBookings = JSON.parse(localStorage.getItem("bookings")) || [];
+let ALL_BOOKINGS = [];
 
-  // ✅ ONLY APPROVED BOOKINGS IN REPORTS
-  const bookings = allBookings.filter(b => b.status === "Approved");
+/* =========================
+   LOAD REPORTS
+========================= */
+document.addEventListener("DOMContentLoaded", loadReports);
 
+async function loadReports() {
+  const q = query(
+    collection(db, "bookings"),
+    where("status", "==", "Approved")
+  );
+
+  const snapshot = await getDocs(q);
+
+  ALL_BOOKINGS = [];
+  snapshot.forEach(doc => ALL_BOOKINGS.push(doc.data()));
+
+  renderTable(ALL_BOOKINGS);
+  updateSummary(ALL_BOOKINGS);
+  loadChart(ALL_BOOKINGS);
+}
+
+/* =========================
+   RENDER TABLE
+========================= */
+function renderTable(bookings) {
   const tableBody = document.getElementById("bookingTable");
-
-  let totalRevenue = 0;
-  let roomSet = new Set();
-
   tableBody.innerHTML = "";
 
-  bookings.forEach((b, i) => {
-    totalRevenue += Number(b.amount || 0);
-    if (b.roomNumber) roomSet.add(b.roomNumber);
+  let sno = 1;
 
+  bookings.forEach(b => {
     tableBody.innerHTML += `
       <tr>
-        <td>${i + 1}</td>
+        <td>${sno++}</td>
         <td>${b.guestName || "-"}</td>
-        <td>${b.roomNumber || "-"}</td>
-        <td>${b.checkIn || "-"}</td>
-        <td>${b.checkOut || "-"}</td>
+        <td>${b.rooms?.join(", ") || "-"}</td>
+        <td>${formatDate(b.checkIn)}</td>
+        <td>${formatDate(b.checkOut)}</td>
         <td>₹${b.amount || 0}</td>
-        <td>${b.paymentMethod || "-"}</td>
-        <td>
-          ${b.aadhaarImg 
-            ? `<img src="${b.aadhaarImg}" class="proof-img" onclick="openImage('${b.aadhaarImg}')">`
-            : "-"
-          }
-        </td>
-        <td>
-          ${b.panImg 
-            ? `<img src="${b.panImg}" class="proof-img" onclick="openImage('${b.panImg}')">`
-            : "-"
-          }
-        </td>
-        <td>
-          <button onclick="deleteBooking(${i})">Delete</button>
-        </td>
-      </tr>
-    `;
+        <td>${b.paymentMethod || "-"}</td>    `;
+  });
+}
+
+/* =========================
+   SUMMARY
+========================= */
+function updateSummary(bookings) {
+  let revenue = 0;
+  let roomSet = new Set();
+
+  bookings.forEach(b => {
+    revenue += Number(b.amount || 0);
+    b.rooms?.forEach(r => roomSet.add(r));
   });
 
   document.getElementById("totalBookings").innerText = bookings.length;
   document.getElementById("totalRooms").innerText = roomSet.size;
-  document.getElementById("totalRevenue").innerText = "₹" + totalRevenue;
-
-  loadChart(bookings);
-});
-
-// ❌ DELETE (REPORT ONLY)
-function deleteBooking(i) {
-  let all = JSON.parse(localStorage.getItem("bookings")) || [];
-  const approved = all.filter(b => b.status === "Approved");
-  const target = approved[i];
-
-  all = all.filter(b => b !== target);
-
-  localStorage.setItem("bookings", JSON.stringify(all));
-  location.reload();
+  document.getElementById("totalRevenue").innerText = "₹" + revenue;
 }
 
-// 📤 EXPORT CSV
-function exportCSV() {
-  const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-  const approved = bookings.filter(b => b.status === "Approved");
+/* =========================
+   SEARCH + DATE FILTER
+========================= */
+document.getElementById("searchInput").addEventListener("input", applyFilters);
+document.getElementById("fromDate").addEventListener("change", applyFilters);
+document.getElementById("toDate").addEventListener("change", applyFilters);
 
-  let csv = "Guest,Room,CheckIn,CheckOut,Amount,Payment\n";
+function applyFilters() {
+  const search = searchInput.value.toLowerCase();
+  const from = fromDate.value;
+  const to = toDate.value;
 
-  approved.forEach(b => {
-    csv += `${b.guestName},${b.roomNumber},${b.checkIn},${b.checkOut},${b.amount},${b.paymentMethod}\n`;
+  const filtered = ALL_BOOKINGS.filter(b => {
+    const guest = b.guestName?.toLowerCase() || "";
+    const room = b.rooms?.join(",").toLowerCase() || "";
+
+    if (search && !guest.includes(search) && !room.includes(search)) return false;
+    if (from && b.checkIn < from) return false;
+    if (to && b.checkOut > to) return false;
+
+    return true;
+  });
+
+  renderTable(filtered);
+  updateSummary(filtered);
+  loadChart(filtered);
+}
+
+/* =========================
+   EXPORT CSV
+========================= */
+window.exportCSV = function () {
+  let csv = "Guest,Rooms,CheckIn,CheckOut,Amount,Payment\n";
+
+  ALL_BOOKINGS.forEach(b => {
+    csv += `"${b.guestName}","${b.rooms?.join(" ")}","${b.checkIn}","${b.checkOut}","${b.amount}","${b.paymentMethod}"\n`;
   });
 
   const blob = new Blob([csv], { type: "text/csv" });
@@ -79,55 +111,50 @@ function exportCSV() {
   link.href = URL.createObjectURL(blob);
   link.download = "reports.csv";
   link.click();
+};
+
+/* =========================
+   IMAGE MODAL
+========================= */
+window.openImage = function (src) {
+  document.getElementById("modalImg").src = src;
+  document.getElementById("imageModal").style.display = "flex";
+};
+
+document.getElementById("imageModal").onclick = () => {
+  document.getElementById("imageModal").style.display = "none";
+};
+
+/* =========================
+   HELPERS
+========================= */
+function formatDate(d) {
+  return d ? new Date(d).toLocaleDateString() : "-";
 }
 
-// 🔍 FILTER SAFE
-function filterTable() {
-  const search = (document.getElementById("searchInput").value || "").toLowerCase();
-  const from = document.getElementById("fromDate").value;
-  const to = document.getElementById("toDate").value;
-
-  document.querySelectorAll("#bookingTable tr").forEach(row => {
-    const text = row.innerText.toLowerCase();
-    const date = row.children[3].innerText;
-
-    let show = text.includes(search);
-
-    if (from && date < from) show = false;
-    if (to && date > to) show = false;
-
-    row.style.display = show ? "" : "none";
-  });
-}
-
-// 📊 CHART
+/* =========================
+   CHART
+========================= */
+let chart;
 function loadChart(bookings) {
   const map = {};
 
   bookings.forEach(b => {
     if (!b.checkIn) return;
-    map[b.checkIn] = (map[b.checkIn] || 0) + Number(b.amount || 0);
+    const day = b.checkIn.split("T")[0];
+    map[day] = (map[day] || 0) + Number(b.amount || 0);
   });
 
-  new Chart(document.getElementById("revenueChart"), {
+  if (chart) chart.destroy();
+
+  chart = new Chart(revenueChart, {
     type: "bar",
     data: {
       labels: Object.keys(map),
       datasets: [{
         label: "Daily Revenue",
-        data: Object.values(map),
-        backgroundColor: "#6c63ff"
+        data: Object.values(map)
       }]
     }
   });
-}
-
-// 🖼️ IMAGE VIEW
-function openImage(src) {
-  document.getElementById("modalImg").src = src;
-  document.getElementById("imageModal").style.display = "flex";
-}
-
-function closeImage() {
-  document.getElementById("imageModal").style.display = "none";
 }

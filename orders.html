@@ -16,43 +16,39 @@
   <span></span>
 </button>
 
-<!-- OVERLAY -->
 <div id="overlay"></div>
 
-<!-- SIDEBAR -->
 <div class="sidebar" id="sidebarPanel">
   <h2>Hotel HMS</h2>
-  <a href="booking.html" >Bookings</a>
-  <a href="orders.html"class="active">Orders</a>
+  <a href="booking.html">Bookings</a>
+  <a href="orders.html" class="active">Orders</a>
   <a href="reports.html">Reports</a>
   <a href="login.html">Logout</a>
 </div>
 
-  <!-- MAIN -->
-  <div class="main">
-    <h1>Room Booking Orders</h1>
+<div class="main">
+  <h1>Room Booking Orders</h1>
 
-    <div class="table-card">
-      <table>
-        <thead>
-          <tr>
-            <th>S.No</th>
-            <th>Guest</th>
-            <th>Room</th>
-            <th>Check-In</th>
-            <th>Check-Out</th>
-            <th>Amount</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <!-- 🔥 IMPORTANT -->
-        <tbody id="ordersTable"></tbody>
-      </table>
-    </div>
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Guest</th>
+          <th>Rooms</th>
+          <th>Check-In</th>
+          <th>Check-Out</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="ordersTable"></tbody>
+    </table>
   </div>
+</div>
 
-  <script src="js/orders.js"></script>
+<!-- ✅ IMPORTANT -->
+<script type="module" src="js/orders.js"></script>
 </body>
 </html>

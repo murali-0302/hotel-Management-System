@@ -1,37 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Reports</title>
+  <meta charset="UTF-8">
+  <title>Reports | HMS</title>
 
-<link rel="stylesheet" href="css/sidebar.css">
-<link rel="stylesheet" href="css/reports.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/reports.css">
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-<button id="menuBtn" class="hamburger">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
-
-<!-- OVERLAY -->
-<div id="overlay"></div>
-
 <!-- SIDEBAR -->
 <div class="sidebar" id="sidebarPanel">
   <h2>Hotel HMS</h2>
-  <a href="booking.html" >Bookings</a>
+  <a href="booking.html">Bookings</a>
   <a href="orders.html">Orders</a>
-  <a href="reports.html"class="active">Reports</a>
+  <a href="reports.html" class="active">Reports</a>
   <a href="login.html">Logout</a>
 </div>
 
+<!-- MAIN -->
 
-<div class="main page">
+<div class="main">
   <h1>Reports & Analytics</h1>
 
   <!-- SUMMARY -->
@@ -43,9 +36,9 @@
 
   <!-- FILTER -->
   <div class="filter-bar">
-    <input type="text" id="searchInput" placeholder="Search guest or room" onkeyup="filterTable()">
-    <input type="date" id="fromDate" onchange="filterTable()">
-    <input type="date" id="toDate" onchange="filterTable()">
+    <input type="text" id="searchInput" placeholder="Search guest or room">
+    <input type="date" id="fromDate">
+    <input type="date" id="toDate">
     <button onclick="exportCSV()">Export CSV</button>
   </div>
 
@@ -63,9 +56,6 @@
         <th>Check-Out</th>
         <th>Amount</th>
         <th>Payment</th>
-        <th>Aadhaar</th>
-        <th>PAN</th>
-        <th>Action</th>
       </tr>
     </thead>
     <tbody id="bookingTable"></tbody>
@@ -73,10 +63,10 @@
 </div>
 
 <!-- IMAGE MODAL -->
-<div id="imageModal" class="img-modal" onclick="closeImage()">
+<div id="imageModal" class="img-modal">
   <img id="modalImg">
 </div>
 
-<script src="js/reports.js"></script>
+<script type="module" src="js/reports.js"></script>
 </body>
 </html>

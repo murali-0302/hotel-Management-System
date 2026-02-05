@@ -1,3 +1,12 @@
+import { db } from "./firebase.js";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
 const seatGrid = document.getElementById("seatGrid");
 const roomInput = document.getElementById("roomNumber");
 const floorSelect = document.getElementById("floorSelect");
@@ -9,24 +18,34 @@ let selectedRooms = [];
 /* =========================
    GET APPROVED ROOMS ONLY
 ========================= */
-function getBookedRooms() {
-  const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-  return bookings
-    .filter(b => b.status === "Approved")
-    .flatMap(b => b.rooms || []);
+async function getBookedRooms() {
+  const q = query(
+    collection(db, "bookings"),
+    where("status", "==", "Approved")
+  );
+
+  const snapshot = await getDocs(q);
+  let rooms = [];
+
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    if (data.rooms) rooms.push(...data.rooms);
+  });
+
+  return rooms;
 }
 
 /* =========================
    RENDER ROOMS
 ========================= */
-function renderRooms() {
+async function renderRooms() {
   seatGrid.innerHTML = "";
   availableBox.innerHTML = "";
   selectedRooms = [];
   roomInput.value = "";
 
   const floor = floorSelect.value;
-  const bookedRooms = getBookedRooms();
+  const bookedRooms = await getBookedRooms();
 
   for (let i = 1; i <= roomsPerFloor; i++) {
     const roomNo = `${floor}${i < 10 ? "0" + i : i}`;
@@ -51,7 +70,7 @@ function renderRooms() {
 }
 
 /* =========================
-   SELECT / DESELECT ROOMS
+   SELECT / DESELECT
 ========================= */
 function toggleRoom(seat, roomNo) {
   if (selectedRooms.includes(roomNo)) {
@@ -68,43 +87,40 @@ function toggleRoom(seat, roomNo) {
 /* =========================
    FLOOR CHANGE
 ========================= */
-function changeFloor() {
+window.changeFloor = function () {
   renderRooms();
-}
+};
 
 /* =========================
    ENABLE EDIT
 ========================= */
-function enableEdit() {
+window.enableEdit = function () {
   document
     .querySelectorAll(".booking-form input, .booking-form select")
     .forEach(el => (el.disabled = false));
-}
+};
 
 /* =========================
    ADD BOOKING (AUTO APPROVE)
 ========================= */
-window.addBooking = function () {
+window.addBooking = async function () {
   if (selectedRooms.length === 0) {
     alert("Please select at least one room!");
     return;
   }
 
   const booking = {
-    id: Date.now(),
     guestName: guestName.value,
     email: email.value,
     phone: phone.value,
     guests: guests.value,
 
-    /* 🔥 MULTI ROOM */
     rooms: selectedRooms,
-
     floor: floorSelect.value,
     checkIn: checkIn.value,
     checkOut: checkOut.value,
     paymentMethod: paymentMethod.value,
-    amount: amount.value,
+    amount: Number(amount.value),
 
     status: "Approved",
     approvedBy: "Admin",
@@ -113,12 +129,14 @@ window.addBooking = function () {
     source: "Admin"
   };
 
-  const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-  bookings.push(booking);
-  localStorage.setItem("bookings", JSON.stringify(bookings));
-
-  alert("✅ Multiple rooms booked & approved!");
-  renderRooms();
+  try {
+    await addDoc(collection(db, "bookings"), booking);
+    alert("✅ Multiple rooms booked & approved!");
+    renderRooms();
+  } catch (err) {
+    console.error(err);
+    alert("❌ Failed to save booking");
+  }
 };
 
 /* =========================

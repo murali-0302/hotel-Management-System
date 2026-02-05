@@ -1,14 +1,31 @@
-import { auth } from "./firebase.js";
+import { auth, db } from "./firebase.js";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+import {
+  doc,
+  setDoc
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 /* =========================
    ADMIN EMAIL LIST
 ========================= */
 const ADMIN_EMAILS = ["admin@gmail.com", "admin@hotel.com"];
+
+/* =========================
+   AUTH STATE CHECK
+========================= */
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("User logged in:", user.email);
+  } else {
+    console.log("Not logged in");
+  }
+});
 
 /* =========================
    REGISTER FUNCTION
@@ -29,6 +46,7 @@ window.register = async function () {
   }
 
   try {
+    // 1️⃣ Create AUTH user
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -37,14 +55,20 @@ window.register = async function () {
 
     const user = userCredential.user;
 
+    const role = ADMIN_EMAILS.includes(user.email) ? "admin" : "user";
+
+    // 2️⃣ CREATE FIRESTORE USER DOCUMENT  ✅ THIS WAS MISSING
+    await setDoc(doc(db, "users", user.uid), {
+      name: name,
+      email: user.email,
+      role: role,
+      createdAt: new Date()
+    });
+
+    // 3️⃣ Local storage (UI only)
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("email", user.email);
-
-    if (ADMIN_EMAILS.includes(user.email)) {
-      localStorage.setItem("role", "admin");
-    } else {
-      localStorage.setItem("role", "user");
-    }
+    localStorage.setItem("role", role);
 
     alert("Registration successful!");
     window.location.href = "booking.html";
@@ -75,15 +99,11 @@ window.login = async function () {
     );
 
     const user = userCredential.user;
+    const role = ADMIN_EMAILS.includes(user.email) ? "admin" : "user";
 
     localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("email", user.email); // ✅ FIXED HERE
-
-    if (ADMIN_EMAILS.includes(user.email)) {
-      localStorage.setItem("role", "admin");
-    } else {
-      localStorage.setItem("role", "user");
-    }
+    localStorage.setItem("email", user.email);
+    localStorage.setItem("role", role);
 
     window.location.href = "booking.html";
 
@@ -94,7 +114,7 @@ window.login = async function () {
 };
 
 /* =========================
-   LOGOUT
+   LOGOUT FUNCTION
 ========================= */
 window.logout = async function () {
   await signOut(auth);
